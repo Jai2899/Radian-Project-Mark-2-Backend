@@ -141,13 +141,13 @@ module.exports = {
       TMRF: TMRF,
       TDRF: TDRF,
       TTTOGF: TTTOGF,
-      creator: "618ad8b56e8795148137bace",
+      creator: "618c71b1d78138a9cfe2a6aa",
     });
     let createdEvent;
     try {
       const result = await event.save();
       createdEvent = transformEvent(result);
-      const creator = await User.findById("618ad8b56e8795148137bace");
+      const creator = await User.findById("618c71b1d78138a9cfe2a6aa");
 
       if (!creator) {
         throw new Error("User not found.");
