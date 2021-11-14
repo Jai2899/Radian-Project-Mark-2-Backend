@@ -142,9 +142,16 @@ input UserInput {
   email: String!
   password: String!
 }
+type AuthData{
+userId:ID!
+token:String!
+tokenExpiration:String!
+
+}
 
 type RootQuery {
     events: [Event!]!
+    login(email:String!,password:String!):AuthData!
 }
 
 type RootMutation {
