@@ -14,6 +14,9 @@ module.exports = {
     }
   },
   createEvent: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated!");
+    }
     const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
     const QuoteDate = new Date().toLocaleDateString();
     const rebate = random(15, 20);
@@ -141,13 +144,13 @@ module.exports = {
       TMRF: TMRF,
       TDRF: TDRF,
       TTTOGF: TTTOGF,
-      creator: "618c71b1d78138a9cfe2a6aa",
+      creator: req.userId
     });
     let createdEvent;
     try {
       const result = await event.save();
       createdEvent = transformEvent(result);
-      const creator = await User.findById("618c71b1d78138a9cfe2a6aa");
+      const creator = await User.findById(req.userId);
 
       if (!creator) {
         throw new Error("User not found.");
