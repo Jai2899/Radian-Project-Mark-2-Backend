@@ -74,6 +74,12 @@ type User {
   createdEvents: [Event!]
 }
 
+type AuthData{
+  userId: ID!
+  token: String!
+  tokenExpiration: Int!
+}
+
 input EventInput {
   address: String!
   purchaseAmount: Float!
@@ -145,6 +151,7 @@ input UserInput {
 
 type RootQuery {
     events: [Event!]!
+    login(email: String!, password: String!): AuthData!
 }
 
 type RootMutation {

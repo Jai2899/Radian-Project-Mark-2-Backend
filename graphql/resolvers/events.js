@@ -79,6 +79,10 @@ module.exports = {
     const TMRF = BMRF + SMRF;
     const TDRF = BDRF + SDRF;
     const TTTOGF = BTTOGF + STTOGF;
+    let creator1="619528dcee96fafa7dd0fd9d";
+    if (req.isAuth) {
+      creator1=req.userId;
+    }
     const event = new Event({
       address: args.eventInput.address,
       purchaseAmount: +args.eventInput.purchaseAmount,
@@ -141,13 +145,13 @@ module.exports = {
       TMRF: TMRF,
       TDRF: TDRF,
       TTTOGF: TTTOGF,
-      creator: "618c71b1d78138a9cfe2a6aa",
+      creator: creator1
     });
     let createdEvent;
     try {
       const result = await event.save();
       createdEvent = transformEvent(result);
-      const creator = await User.findById("618c71b1d78138a9cfe2a6aa");
+      const creator = await User.findById(creator1);
 
       if (!creator) {
         throw new Error("User not found.");
